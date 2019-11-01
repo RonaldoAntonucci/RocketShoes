@@ -10,7 +10,7 @@ import * as CartActions from '../../store/modules/cart/actions';
 
 import { ProductList } from './styles';
 
-const Home = ({ addToCart, amount }) => {
+const Home = ({ addToCartRequest, amount }) => {
   const [products, setProducts] = useState([]);
 
   async function loadProducts() {
@@ -28,8 +28,8 @@ const Home = ({ addToCart, amount }) => {
     loadProducts();
   }, []);
 
-  const handleAddProduct = product => {
-    addToCart(product);
+  const handleAddProduct = id => {
+    addToCartRequest(id);
   };
 
   return (
@@ -39,9 +39,10 @@ const Home = ({ addToCart, amount }) => {
           <img src={product.image} alt={product.title} />
           <strong>{product.title}</strong>
           <span>{product.priceFormatted}</span>
-          <button type="button" onClick={() => handleAddProduct(product)}>
+          <button type="button" onClick={() => handleAddProduct(product.id)}>
             <div>
-              <MdAddShoppingCart size={16} color="#fff" /> {amount[product.id]}
+              <MdAddShoppingCart size={16} color="#fff" />{' '}
+              {amount[product.id] || 0}
             </div>
             <span>ADICIONAR AO CARRINHO</span>
           </button>
