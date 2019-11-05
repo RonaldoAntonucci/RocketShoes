@@ -13,18 +13,17 @@ import { ProductList } from './styles';
 const Home = ({ addToCartRequest, amount }) => {
   const [products, setProducts] = useState([]);
 
-  async function loadProducts() {
-    const response = await api.get('products');
-
-    const data = response.data.map(product => ({
-      ...product,
-      priceFormatted: formatPrice(product.price),
-    }));
-
-    setProducts(data);
-  }
-
   useEffect(() => {
+    async function loadProducts() {
+      const response = await api.get('products');
+
+      const data = response.data.map(product => ({
+        ...product,
+        priceFormatted: formatPrice(product.price),
+      }));
+
+      setProducts(data);
+    }
     loadProducts();
   }, []);
 
